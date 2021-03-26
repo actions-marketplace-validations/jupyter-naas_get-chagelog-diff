@@ -1,18 +1,36 @@
 const core = require('@actions/core');
-const wait = require('./wait');
-
+const parseChangelog = require('changelog-parser');
+const compareVersions = require('compare-versions');
 
 // most @actions toolkit packages have async methods
 async function run() {
   try {
-    const ms = core.getInput('milliseconds');
-    core.info(`Waiting ${ms} milliseconds ...`);
+    const lastVersion = core.getInput('lastVersion');
+    const changelogPath = core.getInput('changelogPath');
+    const changelog = await parseChangelog(changelogPath);
+    let changes = '';
+    if (lastVersion === 'latest') {
+      changes = changelog.versions[0].body;
+    } else {
+      if (compareVersions.validate(lastVersion)) {
+        core.setFailed(`lastVersion ${lastVersion} do no follow semver`);
+      }
+      changelog.versions.forEach((version) => {
+        if (compareVersions.validate(version.version)) {
+          core.setFailed(`version ${version.version} do no follow semver`);
+        }
+        if (compareVersions.compare(lastVersion, version.version, '>')) {
+          if (changes !== '') {
+            changes += "\n";
+          }
+          changes += version.body;
+        }
+      });
+    }
 
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    await wait(parseInt(ms));
-    core.info((new Date()).toTimeString());
+    core.info(changes);
 
-    core.setOutput('time', new Date().toTimeString());
+    core.setOutput('lastChanges', changes);
   } catch (error) {
     core.setFailed(error.message);
   }

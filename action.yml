@@ -1,13 +1,17 @@
 name: 'Wait'
 description: 'Wait a designated number of milliseconds'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  lastVersion:  # id of input
+    description: 'Version from whre you want the diff'
     required: true
-    default: '1000'
+    default: 'latest'
+  changelogPath:
+    description: 'Path of your changelog file'
+    required: true
+    default: 'CHANGELOG.md'
 outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+  cnages: # output will be available to future steps
+    description: 'The changes from lastVersion in markdown format'
 runs:
   using: 'node12'
   main: 'dist/index.js'
