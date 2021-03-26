@@ -12,6 +12,9 @@ inputs:
 outputs:
   cnages: # output will be available to future steps
     description: 'The changes from lastVersion in markdown format'
+branding:
+  icon: 'play'
+  color: 'green'
 runs:
   using: 'node12'
   main: 'dist/index.js'
