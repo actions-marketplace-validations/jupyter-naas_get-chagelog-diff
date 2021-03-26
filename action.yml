@@ -1,5 +1,5 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'Get changelog diff'
+description: 'get the changelog message form x last version as output'
 inputs:
   lastVersion:  # id of input
     description: 'Version from whre you want the diff'
