@@ -15,7 +15,7 @@ jobs:
     steps:
       ...
       - name: Get the last version change
-        uses: jupyter-naas/get-chagelog-diff@v1
+        uses: jupyter-naas/get-chagelog-diff@v1.0.3
         with:
           lastVersion: 'latest'
           changelogPath: './CHANGELOG.md'
