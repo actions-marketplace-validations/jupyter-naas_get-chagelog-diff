@@ -28,8 +28,8 @@ async function run() {
       });
     }
     changes = changes
-      .replace(/\r/g, '/\r')
-      .replace(/\n/g, '/\n');
+      .replace(/\r/g, '\\r')
+      .replace(/\n/g, '\\n');
     core.info(changes);
 
     core.setOutput('lastChanges', changes);
