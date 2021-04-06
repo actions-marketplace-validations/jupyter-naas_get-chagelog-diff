@@ -10,7 +10,7 @@ inputs:
     required: true
     default: 'CHANGELOG.md'
 outputs:
-  cnages: # output will be available to future steps
+  changes: # output will be available to future steps
     description: 'The changes from lastVersion in markdown format'
 branding:
   icon: 'play'
