@@ -27,7 +27,9 @@ async function run() {
         }
       });
     }
-
+    changes = changes.replace("%", "%25");
+    changes = changes.replace("\n", "%0A");
+    changes = changes.replace("\r", "%0D");
     core.info(changes);
 
     core.setOutput('lastChanges', changes);
