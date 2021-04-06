@@ -35,9 +35,8 @@ async function run() {
       });
     }
     changes = changes
-      .replace(/%/g, '%25')
-      .replace(/\r/g, '%0D')
-      .replace(/\n/g, '%0A');
+      .replace(/\r/g, '/\r')
+      .replace(/\n/g, '/\n');
     core.info(changes);
 
     core.setOutput('lastChanges', changes);
